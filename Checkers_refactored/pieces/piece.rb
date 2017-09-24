@@ -8,10 +8,22 @@ class Piece
     @pos = pos
   end
 
+  #returns array of empty squares that a piece is threatening
+  def squares_threatening
+    threatening_set = []
+
+    move_dirs.each do |direction|
+      x,y = @pos[0] + direction[0],@pos[1] + direction[1]
+      next unless [x,y].all?{|i| i.between?(0,7)}
+      threatening_set << [x,y] if board[[x,y]].nil?
+    end
+    threatening_set
+  end
+
+
   #including attack
   def moves
     moveset = []
-
 
     move_dirs.each do |direction|
       x,y = @pos[0] + direction[0],@pos[1] + direction[1]
@@ -28,7 +40,6 @@ class Piece
           end
       end
     end
-
     moveset
   end
 
@@ -47,15 +58,7 @@ class Piece
         end
       end
 
-
     end
       attack_moveset
   end
-
-
-
-
-
-
-
 end

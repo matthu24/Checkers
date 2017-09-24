@@ -12,6 +12,27 @@ class Player
     @board = board
   end
 
+  #returns to and from positions
+  def get_move
+    print "Your move, #{@name}\n"
+    from = select
+    to = select
+    [from,to]
+  end
+
+  #either returns new attack position [x,y] or returns nil
+  def continued_attack(piece)
+    print "Would you like to continue your attack?(y/n)"
+    response =  $stdin.gets.chomp
+    if response == "y"
+      print "Select your next attack move"
+
+      return select
+    else
+      return nil
+    end
+  end
+
   #this whole method controls the cursor moving ONE space
   def move_cursor(input)
     #case statement assigns a direction to dx,dy

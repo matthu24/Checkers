@@ -24,6 +24,31 @@ class Board
     pieces.select {|piece| piece.color == color}
   end
 
+  #return array of pieces that have moves that are not on enemy's threatened_squares list
+  def find_unthreatened_pieces(color)
+    unthreatened_pieces = []
+    moving_pieces = find_pieces(color).select{|piece| !piece.moves.empty?}
+    enemy_color = (color == :white ? :black : :white)
+    squares_threatened = threatened_squares(enemy_color)
+    moving_pieces.each do |piece|
+      piece.moves.each do |move|
+        if !squares_threatened.include?(move)
+          unthreatened_pieces << piece
+        end
+      end
+    end
+    unthreatened_pieces
+  end
+
+  #returns array of all the squares that a given side is threatening
+  def threatened_squares(color)
+    squares = []
+    find_pieces(color).each do |piece|
+      squares += piece.squares_threatening
+    end
+    squares
+  end
+
   #change board, and Piece.pos
   def move!(color,from,to)
     piece = self[from]
@@ -36,7 +61,6 @@ class Board
       x,y = (from[0] + to[0])/2, (from[1]+to[1])/2
       self[[x,y]] = nil
     end
-
 
     if piece.is_a?(Soldier)
       self[to] = King.new(piece.color,self,to) if piece.promotion?
@@ -53,17 +77,6 @@ class Board
     !piece.attack_moves.empty?
   end
 
-  #continued attack strategy:
-  #loop move until move is not an attack and a continued attack is not possible
-  #if move is an attack and a continued attack is possible, ask player if want to continue attack
-  #if yes, then color and from are then preselected for the next move
-  #must select from attack moves (might need to make another one)
-  #player is then asked to select an attack move
-  # move is executed
-
-
-  #black rows 0,1,2
-  #white rows 5,6,7
   def setup_board
     even_cols = (0..7).to_a.select{|num| num % 2 == 0}
     odd_cols = (0..7).to_a.select{|num| num % 2 == 1}
