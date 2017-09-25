@@ -26,7 +26,6 @@ class Player
     response =  $stdin.gets.chomp
     if response == "y"
       print "Select your next attack move"
-
       return select
     else
       return nil
@@ -35,14 +34,7 @@ class Player
 
   #this whole method controls the cursor moving ONE space
   def move_cursor(input)
-    #case statement assigns a direction to dx,dy
-    #dx, dy = case input
-    #when 'w' then [-1, 0]
-    #when 's' then [1, 0]
-    #when 'a' then [0, -1]
-    #when 'd' then [0, 1]
-    #when 'q' then exit
-    #end
+
     if input == 'w'
       dx,dy = [-1,0]
     elsif input == 's'

@@ -9,10 +9,10 @@ class Game
 
   attr_accessor :current_player
 
-  def initialize
-    @board = Board.new
-    @player1 = Player.new('White',:white, @board)
-    @player2 = ComputerPlayer.new('Black',:black, @board)
+  def initialize(board,player1,player2)
+    @board = board
+    @player1 = player1
+    @player2 = player2
     @current_player = @player1
   end
 
@@ -25,7 +25,6 @@ class Game
   end
 
 
-  #redo this so that player get moves are in the player class exculsively
   def play
     @board.render(current_player.cursor)
     until game_over?
@@ -55,5 +54,17 @@ class Game
 end
 
 if __FILE__ == $PROGRAM_NAME
-  Game.new.play
+
+  print "Play with computer? (y/n)"
+  board = Board.new
+  if $stdin.gets.chomp == "y"
+
+    player1 = Player.new('White',:white, board)
+    player2 = ComputerPlayer.new('Black',:black, board)
+  else
+    player1 = Player.new('White',:white, board)
+    player2 = Player.new('Black', :black, board)
+  end
+
+  Game.new(board,player1,player2).play
 end

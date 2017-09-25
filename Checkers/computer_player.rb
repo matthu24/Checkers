@@ -53,5 +53,4 @@ class ComputerPlayer
     piece.attack_moves.sample
   end
 
-
 end
