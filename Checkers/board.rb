@@ -41,18 +41,6 @@ class Board
     mobile_pieces
   end
 
-  #def find_threatened_pieces(color,mobile_pieces)
-  #  threatened_pieces = []
-  #  enemy_color = (color == :white ? :black : :white)
-  #  squares_threatened = threatened_squares(enemy_color)
-  #  mobile_pieces.each do |piece|
-  #      if squares_threatened.include?(piece.pos)
-  #        threatened_pieces << piece
-  #      end
-  #  end
-  #  threatened_pieces
-  #end
-
   #finds total number of threatened pieces in a side
   def threatened_pieces_number(color)
     all_pieces = find_pieces(color)

@@ -14,23 +14,17 @@ class ComputerPlayer
   #add immediate diagonals IF the diagnoal space ahead of it occupied
   #duplicate the board
   #test all moves to see if each move increases the amount of threatened pieces
-  #use board.find_threatened_pieces method
+  #use board.threatened_pieces_number method
   #choose the one that minimizes the number of threatened pieces
 
   #return a FROM position and a TO position [[from],[to]]
   def get_move
-
-    #select pieces from find_pieces(@color) that have NON-empty attack_move arrays
-    #select a random piece from that list and execute attack
-    #
     attacking_pieces = @board.find_pieces(@color).select{|piece| !piece.attack_moves.empty?}
     #no attacks available
     #if no attacks available, iterate through every single piece and it's moves (double loop)
     #find the move for the minimum number of threatened pieces
     #make a holder for the minimum piece and its move
     if attacking_pieces.empty?
-
-      #dup_board = @board.dup
       piece_move_hash = Hash.new(0)
       threatened_difference = 10
       threatening_difference = 10
