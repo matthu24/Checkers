@@ -25,23 +25,63 @@ class Board
   end
 
   #return array of pieces that have moves that are not on enemy's threatened_squares list
-  def find_unthreatened_pieces(color)
-    unthreatened_pieces = []
+  def find_mobile_pieces(color)
+    mobile_pieces = []
     moving_pieces = find_pieces(color).select{|piece| !piece.moves.empty?}
     enemy_color = (color == :white ? :black : :white)
-    squares_threatened = threatened_squares(enemy_color)
+
+    squares_threatened = threatening_squares(enemy_color)
     moving_pieces.each do |piece|
       piece.moves.each do |move|
         if !squares_threatened.include?(move)
-          unthreatened_pieces << piece
+          mobile_pieces << piece
         end
       end
     end
-    unthreatened_pieces
+    mobile_pieces
+  end
+
+  #def find_threatened_pieces(color,mobile_pieces)
+  #  threatened_pieces = []
+  #  enemy_color = (color == :white ? :black : :white)
+  #  squares_threatened = threatened_squares(enemy_color)
+  #  mobile_pieces.each do |piece|
+  #      if squares_threatened.include?(piece.pos)
+  #        threatened_pieces << piece
+  #      end
+  #  end
+  #  threatened_pieces
+  #end
+
+  #finds total number of threatened pieces in a side
+  def threatened_pieces_number(color)
+    all_pieces = find_pieces(color)
+    number = 0
+    enemy_color = (color == :white ? :black : :white)
+    squares_threatened = threatening_squares(enemy_color)
+    all_pieces.each do |piece|
+      if squares_threatened.include?(piece.pos)
+        number+=1
+      end
+    end
+    number
+  end
+
+  def dup
+    dup = Board.new(false)
+    (0..7).each do |row|
+      (0..7).each do |col|
+        pos = [row,col]
+        next if self[pos].nil?
+        color = self[pos].color
+        dup[pos] = self[pos].class.new(color,dup,pos)
+      end
+    end
+    dup
   end
 
   #returns array of all the squares that a given side is threatening
-  def threatened_squares(color)
+  def threatening_squares(color)
     squares = []
     find_pieces(color).each do |piece|
       squares += piece.squares_threatening
@@ -100,7 +140,7 @@ class Board
     @grid.each_with_index do |row, i|
       row.each_with_index do |square, j|
         bgc = :light_gray if [i, j] == cursor
-        bgc ||= ((i + j).even? ? :light_black : :red)
+        bgc ||= ((i + j).even? ? :light_black : :light_blue)
         print " #{square.nil? ? ' ' : square.render }  ".colorize(:background => bgc)
       end
 

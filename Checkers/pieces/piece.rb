@@ -9,13 +9,17 @@ class Piece
   end
 
   #returns array of empty squares that a piece is threatening
+  #a piece is threatening a square if the
   def squares_threatening
     threatening_set = []
 
     move_dirs.each do |direction|
       x,y = @pos[0] + direction[0],@pos[1] + direction[1]
-      next unless [x,y].all?{|i| i.between?(0,7)}
-      threatening_set << [x,y] if board[[x,y]].nil?
+      x2,y2 = @pos[0] + 2*direction[0],@pos[1] + 2*direction[1]
+      next unless [x2,y2].all?{|i| i.between?(0,7)}
+      #add square to threatening_set unless the destination square is occupied
+      #threatening_set << [x,y]
+      threatening_set << [x,y] if board[[x2,y2]].nil?
     end
     threatening_set
   end
