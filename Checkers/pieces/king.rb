@@ -1,4 +1,3 @@
-
 class King < Piece
   def move_dirs
     [[1,1],[1,-1],[-1,1],[-1,-1]]
@@ -7,6 +6,5 @@ class King < Piece
   def render
     '◎'.colorize(color)
   end
-
 
 end

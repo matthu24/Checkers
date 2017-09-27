@@ -21,7 +21,12 @@ class Game
   end
 
   def game_over?
-    @board.find_pieces(:white).empty? || @board.find_pieces(:black).empty?
+    stalemate = true
+    current_player_pieces = @board.find_pieces(@current_player.color)
+    current_player_pieces.each do |piece|
+      stalemate = false if !piece.moves.empty?
+    end
+    @board.find_pieces(:white).empty? || @board.find_pieces(:black).empty? || stalemate == true
   end
 
 
@@ -58,7 +63,6 @@ if __FILE__ == $PROGRAM_NAME
   print "Play with computer? (y/n)"
   board = Board.new
   if $stdin.gets.chomp == "y"
-
     player1 = Player.new('White',:white, board)
     player2 = ComputerPlayer.new('Black',:black, board)
   else

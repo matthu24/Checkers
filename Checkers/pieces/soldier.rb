@@ -8,7 +8,6 @@ class Soldier < Piece
     '●'.colorize(color)
   end
 
-
   def promotion?
     return pos[0] == 7 if @color == :white
     return pos[0] == 0 if @color == :black

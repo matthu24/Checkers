@@ -24,8 +24,7 @@ class Piece
     threatening_set
   end
 
-
-  #including attack
+  #all moves including attack
   def moves
     moveset = []
 
@@ -47,6 +46,7 @@ class Piece
     moveset
   end
 
+  #only attack moves
   def attack_moves
     attack_moveset = []
     move_dirs.each do |direction|
@@ -61,7 +61,6 @@ class Piece
           attack_moveset << [x,y]
         end
       end
-
     end
       attack_moveset
   end
