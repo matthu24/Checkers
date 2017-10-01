@@ -36,7 +36,9 @@ class Game
       begin
       #use get_move method
       from,to  = @current_player.get_move
+
       @board.move!(@current_player.color,from,to)
+
       while @board.attack?(from,to) && @board.attack_possible?(to)
         #use continued_attack method
           from = to
@@ -47,12 +49,16 @@ class Game
             break
           end
       end
+
       change_turns
+
       @board.render(current_player.cursor)
-    rescue RuntimeError => e
+      print "Computer moved to #{to}. "
+
+      rescue RuntimeError => e
       print e
-      retry
-    end
+        retry
+      end
     end
     print "Game Over\n"
   end

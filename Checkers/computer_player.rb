@@ -13,6 +13,7 @@ class ComputerPlayer
 
   #return a FROM position and a TO position [[from],[to]]
   def get_move
+    
     attacking_pieces = @board.find_pieces(@color).select{|piece| !piece.attack_moves.empty?}
     #no attacks available
     #if no attacks available, iterate through every single piece and it's moves (double loop)
@@ -41,7 +42,6 @@ class ComputerPlayer
 
        mobile_pieces.each do |piece|
          piece.moves.each do |move|
-
            from = piece.pos
            dup_board = @board.dup
            dup_board.move!(@color,from,move)
@@ -67,11 +67,14 @@ class ComputerPlayer
          end
        end
        select_piece,select_move = piece_move_hash.to_a.sample
+
        return [select_piece.pos,select_move]
     #attack
     else
       select_piece = attacking_pieces.sample
-      return [select_piece.pos,select_piece.attack_moves.sample]
+      select_move = select_piece.attack_moves.sample
+
+      return [select_piece.pos,select_move]
     end
   end
 
