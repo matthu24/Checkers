@@ -1,3 +1,4 @@
+#test comment for feature1 branch
 class Board
   attr_accessor :grid
   def initialize(fill = true)
