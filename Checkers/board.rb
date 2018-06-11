@@ -9,6 +9,12 @@ class Board
   end
 
   def test_method
+
+    4
+
+  end
+
+  def test_method_2
     7
   end
 
