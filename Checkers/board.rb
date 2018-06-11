@@ -9,7 +9,7 @@ class Board
   end
 
   def test_method
-    @grid
+    7
   end
 
   def [] (pos)
