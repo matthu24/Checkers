@@ -1,10 +1,15 @@
 #test comment for feature1 branch
-#another test for feature2 
+#another test for feature2
+
 class Board
   attr_accessor :grid
   def initialize(fill = true)
     @grid = Array.new(8) {Array.new(8)}
     setup_board if fill
+  end
+
+  def test_method
+    @grid
   end
 
   def [] (pos)
